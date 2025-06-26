@@ -12,6 +12,7 @@ import {
 import { GiClothes } from "react-icons/gi";
 import { MdSportsHandball } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function EcommerceLanding() {
     const { items } = useSelector(state => state.data);
@@ -56,11 +57,13 @@ export default function EcommerceLanding() {
                         Discover amazing products at unbeatable prices. Your
                         one-stop destination for everything you need.
                     </Typography>
-                    <Button
-                        size="lg"
-                        className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-3 text-lg">
-                        Start Shopping
-                    </Button>
+                    <Link to="/products">
+                        <Button
+                            size="lg"
+                            className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-3 text-lg">
+                            Start Shopping
+                        </Button>
+                    </Link>
                 </div>
             </section>
 

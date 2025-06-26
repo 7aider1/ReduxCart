@@ -22,7 +22,7 @@ export default function EcommerceNavbar() {
                     </Typography>
 
                     {/* Navigation */}
-                    <nav className="hidden md:flex space-x-8">
+                    <nav className="flex space-x-4 md:space-x-8">
                         <Link
                             to="/"
                             className="relative text-white font-medium transition duration-300 hover:text-gray-100 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full">
