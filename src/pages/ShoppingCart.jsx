@@ -7,18 +7,27 @@ import {
     deleteProduct,
     increaseProduct
 } from "../../Redux/mainData";
+import { useEffect, useState } from "react";
 
 export default function ShoppingCart() {
     const dispatch = useDispatch();
 
     const { selectedProduct } = useSelector(state => state.data);
 
-    const subtotal = selectedProduct.reduce((total, product) => {
-        return total + product.price * product.quantity;
-    }, 0);
+    const [subtotal, setSubtotal] = useState(0);
+    const [tax, setTax] = useState(0);
+    const [totalWithTax, setTotalWithTax] = useState(0);
 
-    const tax = +(subtotal * 0.18).toFixed(2);
-    const totalWithTax = +(subtotal + tax).toFixed(2);
+    useEffect(() => {
+        const subtotal = selectedProduct.reduce((total, product) => {
+            return total + product.price * product.quantity;
+        }, 0);
+        setSubtotal(subtotal.toFixed(2));
+        const tax = +(subtotal * 0.18).toFixed(2);
+        setTax(tax);
+        const totalWithTax = +(subtotal + tax).toFixed(2);
+        setTotalWithTax(totalWithTax);
+    }, [selectedProduct]);
 
     return (
         <div className="bg-gray-50 min-h-screen p-6">
@@ -121,7 +130,7 @@ export default function ShoppingCart() {
                         </Typography>
                         <div className="flex justify-between mb-2 text-sm text-gray-600">
                             <span>Subtotal</span>
-                            <span>${subtotal.toFixed(2)}</span>
+                            <span>${subtotal}</span>
                         </div>
                         <div className="flex justify-between mb-4 text-sm text-gray-600">
                             <span>Tax</span>
