@@ -194,56 +194,51 @@ const mainDataSlice = createSlice({
     initialState,
     reducers: {
         addProduct: (state, { payload }) => {
-            const currentProduct = state.items.find(
-                product => product.id === payload
-            );
+            const currentProduct = state.items.find(p => p.id === payload);
             const exitProduct = state.selectedProduct.find(
-                product => product.id === payload
+                p => p.id === payload
             );
 
             if (exitProduct) {
-                if (exitProduct.count > 0) {
-                    exitProduct.count -= 1;
+                if (currentProduct.count > 0) {
                     currentProduct.count -= 1;
                     exitProduct.quantity += 1;
                 }
             } else {
-                state.selectedProduct.push({
-                    ...currentProduct,
-                    quantity: 1
-                });
+                if (currentProduct.count > 0) {
+                    currentProduct.count -= 1;
+                    state.selectedProduct.push({
+                        id: currentProduct.id,
+                        name: currentProduct.name,
+                        price: currentProduct.price,
+                        color: currentProduct.color,
+                        image: currentProduct.image,
+                        quantity: 1
+                    });
+                }
             }
         },
+
         increaseProduct: (state, { payload }) => {
-            const currentProduct = state.items.find(
-                product => product.id === payload
-            );
-
+            const currentProduct = state.items.find(p => p.id === payload);
             const exitProduct = state.selectedProduct.find(
-                product => product.id === payload
+                p => p.id === payload
             );
-            if (exitProduct.count > 0) {
-                exitProduct.count -= 1;
 
+            if (currentProduct.count > 0) {
                 currentProduct.count -= 1;
-
                 exitProduct.quantity += 1;
             }
         },
         decreaseProduct: (state, { payload }) => {
-            const currentProduct = state.items.find(
-                product => product.id === payload
-            );
-
+            const currentProduct = state.items.find(p => p.id === payload);
             const exitProduct = state.selectedProduct.find(
-                product => product.id === payload
+                p => p.id === payload
             );
-            if (exitProduct.count >= 0) {
-                exitProduct.count += 1;
 
-                currentProduct.count += 1;
-
+            if (exitProduct.quantity > 1) {
                 exitProduct.quantity -= 1;
+                currentProduct.count += 1;
             }
         },
         deleteProduct: (state, { payload }) => {
