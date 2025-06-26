@@ -213,8 +213,6 @@ const mainDataSlice = createSlice({
                     quantity: 1
                 });
             }
-
-            // console.log(JSON.parse(JSON.stringify(state.selectedProduct)));
         },
         increaseProduct: (state, { payload }) => {
             const currentProduct = state.items.find(
@@ -266,20 +264,9 @@ const mainDataSlice = createSlice({
             // console.log(JSON.parse(JSON.stringify(state.copyOfItems)));
 
             currentProduct.count = copy.count;
-        },
-        getTotal: state => {
-            const total = state.selectedProduct.reduce((acc, product) => {
-                return acc + product.price * (product.quantity || 1);
-            }, 0);
         }
     }
 });
-
-export const selectTotal = state =>
-    state.data.selectedProduct.reduce(
-        (acc, p) => acc + p.price * p.quantity,
-        0
-    );
 
 export const data = mainDataSlice.reducer;
 export const { addProduct, increaseProduct, decreaseProduct, deleteProduct } =

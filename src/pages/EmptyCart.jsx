@@ -9,7 +9,6 @@ export default function EmptyCart() {
     const { selectedProduct } = useSelector(state => state.data);
     return (
         <>
-            {/* <ShoppingCart /> */}
             {selectedProduct.length > 0 ? (
                 <ShoppingCart />
             ) : (
